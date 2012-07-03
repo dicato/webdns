@@ -4,7 +4,7 @@ import os
 import argparse
 
 try:
-    from bottle import route, run
+    from bottle import route, run, response
 
 except ImportError:
     raise ImportError("Please install bottle.py, exiting.")
@@ -32,6 +32,7 @@ def set_nameservers(servers):
 @route('/')
 @route('/:name')
 def index(name='www.google.com'):
+    response.content_type = 'text/plain'
     return str(RESOLVER.query(name).response)
 
 if __name__ == '__main__':
