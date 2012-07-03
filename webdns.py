@@ -7,4 +7,4 @@ import dns.resolver
 def index(name='www.google.com'):
     return str(dns.resolver.query(name).response)
 
-run(server='gevent', port=os.environ.get('PORT', 5000))
+run(host='0.0.0.0', server='gevent', port=os.environ.get('PORT', 80))
