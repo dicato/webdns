@@ -1,1 +1,1 @@
-web: webdns.py
+web: python webdns.py
