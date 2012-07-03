@@ -1,0 +1,5 @@
+bottle==0.10.11
+dnspython==1.10.0
+gevent==0.13.7
+greenlet==0.4.0
+wsgiref==0.1.2
