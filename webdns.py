@@ -42,11 +42,17 @@ if __name__ == '__main__':
         required=False,
         action='append',
         dest='nameservers',
-        help="Set various DNS servers to use by IP address"
-    )
+        help="Set various DNS servers to use by IP address")
+
+    parser.add_argument(
+        '--port',
+        default=8080,
+        type=int,
+        required=False,
+        help="Port to listen on")
 
     args = parser.parse_args()
     if args.nameservers:
         set_nameservers(args.nameservers)
 
-    run(host='0.0.0.0', port=os.environ.get('PORT', 8080))
+    run(host='0.0.0.0', port=os.environ.get('PORT', args.port))
