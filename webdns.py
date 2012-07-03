@@ -1,3 +1,4 @@
+import os
 from bottle import route, run
 import dns.resolver
 
