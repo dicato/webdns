@@ -1,10 +1,52 @@
+#!/usr/bin/env python
+
 import os
-from bottle import route, run
-import dns.resolver
+import argparse
+
+try:
+    from bottle import route, run
+
+except ImportError:
+    raise ImportError("Please install bottle.py, exiting.")
+
+try:
+    import dns.resolver
+
+except ImportError:
+    raise ImportError("Please install dnspython, exiting")
+
+
+# Globals
+RESOLVER = dns.resolver.Resolver()
+
+
+def set_nameservers(servers):
+    if isinstance(servers, list):
+        print "Using %s as nameservers." % str(servers)
+        RESOLVER.nameservers = servers
+
+    else:
+        raise TypeError("'server' must be a list")
+
 
 @route('/')
 @route('/:name')
 def index(name='www.google.com'):
-    return str(dns.resolver.query(name).response)
+    return str(RESOLVER.query(name).response)
 
-run(host='0.0.0.0', port=os.environ.get('PORT', 80))
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--nameserver',
+        default=[],
+        required=False,
+        action='append',
+        dest='nameservers',
+        help="Set various DNS servers to use by IP address"
+    )
+
+    args = parser.parse_args()
+    if args.nameservers:
+        set_nameservers(args.nameservers)
+
+    run(host='0.0.0.0', port=os.environ.get('PORT', 8080))
