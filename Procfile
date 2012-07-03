@@ -1,1 +1,1 @@
-web: python webdns.py
+web: python webdns.py --port 80
