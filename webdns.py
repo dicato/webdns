@@ -29,6 +29,11 @@ def set_nameservers(servers):
         raise TypeError("'server' must be a list")
 
 
+@route('/favicon.ico')
+def favicon():
+    return ''
+
+
 @route('/')
 @route('/:name')
 def index(name='www.google.com'):
