@@ -38,7 +38,15 @@ def favicon():
 @route('/:name')
 def index(name='www.google.com'):
     response.content_type = 'text/plain'
-    return str(RESOLVER.query(name).response)
+    try:
+        results = str(RESOLVER.query(name).response)
+
+    except dns.resolver.NXDOMAIN:
+        results = 'NXDOMAIN'
+
+    finally:
+        return results
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
