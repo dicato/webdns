@@ -1,1 +1,1 @@
-web: python webdns.py --port 80
+web: newrelic-admin run-program python webdns.py --port 80
