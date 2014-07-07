@@ -44,6 +44,12 @@ def index(name='www.google.com'):
     except dns.resolver.NXDOMAIN:
         results = 'NXDOMAIN'
 
+    except dns.resolver.NoAnswer:
+        results = 'NoAnswer'
+
+    except:
+        results = 'Unknown'
+
     finally:
         return results
 
