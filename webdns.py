@@ -11,7 +11,6 @@ except ImportError:
 
 try:
     import dns.resolver
-
 except ImportError:
     raise ImportError("Please install dnspython, exiting")
 
@@ -35,11 +34,13 @@ def favicon():
 
 
 @route('/')
-@route('/:name')
-def index(name='www.google.com'):
+@route('/<name>')
+@route('/<record_type:path>/<name>')
+def index(record_type='A', name='www.google.com'):
     response.content_type = 'text/plain'
+
     try:
-        results = str(RESOLVER.query(name).response)
+        results = str(RESOLVER.query(name, record_type).response)
 
     except dns.resolver.NXDOMAIN:
         results = 'NXDOMAIN'
