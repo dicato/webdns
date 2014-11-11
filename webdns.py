@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import os
 import argparse
+import os
 
 try:
     from bottle import route, run, response
@@ -35,7 +35,7 @@ def favicon():
 
 @route('/')
 @route('/<name>')
-@route('/<record_type:path>/<name>')
+@route('/<record_type>/<name>')
 def index(record_type='A', name='www.google.com'):
     response.content_type = 'text/plain'
 
